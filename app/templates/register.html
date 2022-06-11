@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="register-main">
-        <img src="{{ url_for('static', filename='images/kids-studying-from-home.gif') }}" alt="kids-studying-from-home" class="register-img">
+        <img src="{{ url_for('static', filename='images/form_register.jpg') }}" alt="kids-studying-from-home" class="register-img">
         <div class="register-form">
             <form action="" method="POST">
                 {{ form.hidden_tag() }}
@@ -50,8 +50,8 @@
                     {% endfor %}
                 </div>
                 <div class="form-para">
-                <svg width="30px" height="30px" viewBox="0 0 16 16" class="bi bi-envelope" fill="currentColor" xmlns="http://www.w3.org/2001/svg">
-                        <path fill-rule="evenodd" d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
+                <svg width="30px" height="30px" viewBox="0 0 16 16" class="bi bi-calendar-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                     </svg>
                     {{form.birthdate(class="datefield", placeholder='дд.мм.гггг')}}
                     {% for error in form.birthdate.errors %}

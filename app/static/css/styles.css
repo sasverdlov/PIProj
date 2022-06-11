@@ -138,7 +138,8 @@ nav {
     display: flex;
     align-items: center;
     flex-direction: row;
-    margin-bottom: 27px;
+    margin-bottom: 20px;
+    margin-left: 10px;
 }
 
 .form-para svg {
@@ -150,6 +151,7 @@ nav {
 
 .form-para input {
     border: none;
+    /*width: 60%;*/
 }
 
 .form-para input ::placeholder{
@@ -159,6 +161,11 @@ nav {
 .form-para p {
     color: #8e8e8e;
     font-weight: 400;
+    /*margin-right: 30%;*/
+    margin-left: 10%;
+
+    /*!*width: 224px;*!*/
+    /*max-width: 500px;*/
 }
 .form-para span {
     margin-left: 15px;
@@ -166,7 +173,7 @@ nav {
 }
 
 .form-para p input{
-    margin-left: 100px;
+    /*margin-left: 10%;*/
 }
 
 
@@ -196,7 +203,7 @@ nav {
 
 .register-form p{
     display: block;
-    margin-left: auto;
+    /*margin-left: auto;*/
 }
 
 .register-intro{
