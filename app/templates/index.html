@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="home-div">
+        <img src="{{ url_for('static', filename='images/home.jpg') }}" class="home-img">
+        <div class="info-div">
+            {% if g.user %}
+                <h1>Добро пожаловать, <br>{{ g.user.username.capitalize() }}! </h1>
+            {% else %}
+                <h1>Приветствуем вас!</h1>
+            {% endif %}
+            <h4>
+                <br>Нажмите "Продолжить"
+            </h4>
+            <a href="{{ url_for('question', id=1)}}">Продолжить</a>
+        </div>
+    </div>
+{% endblock %}
