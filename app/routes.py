@@ -87,7 +87,7 @@ def question(id):
             flash("Вам нужно выбрать вариант ответа!")
             return redirect(url_for('question', id=id))
         if option:
-            result = Results(u_id=g.user.id, q_id=id, question=q, answ=option, timestamp=datetime.utcnow())
+            result = Results(u_id=g.user.id, s_uid=session['s_uid'], q_id=id, question=q, answ=option, timestamp=datetime.utcnow())
             db.session.add(result)
             db.session.commit()
         return redirect(url_for('question', id=(id+1)))
