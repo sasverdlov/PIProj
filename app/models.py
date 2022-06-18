@@ -57,6 +57,7 @@ class Results(db.Model):
     s_uid = db.Column(db.String(50), ForeignKey(Sessions.s_uid))
     q_id = db.Column(db.Integer, ForeignKey(Questions.q_id))
     answ = db.Column(db.String(100))
+    q_requested_timestamp = db.Column(db.DateTime)
     timestamp = db.Column(db.DateTime)
 
     user = relationship('User', foreign_keys='Results.u_id')

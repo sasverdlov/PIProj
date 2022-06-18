@@ -68,6 +68,8 @@ def question(id):
         return redirect(url_for('score'))
     if not g.user:
         return redirect(url_for('register'))
+    if request.method == 'GET':
+        session['question_start_time'] = datetime.utcnow()
 
     # print(g.instr, q.instr)
     # if q.instr != g.instr:
@@ -87,7 +89,8 @@ def question(id):
             flash("Вам нужно выбрать вариант ответа!")
             return redirect(url_for('question', id=id))
         if option:
-            result = Results(u_id=g.user.id, s_uid=session['s_uid'], q_id=id, question=q, answ=option, timestamp=datetime.utcnow())
+            result = Results(u_id=g.user.id, s_uid=session['s_uid'], q_id=id, question=q, answ=option,
+                             q_requested_timestamp=session['question_start_time'], timestamp=datetime.utcnow())
             db.session.add(result)
             db.session.commit()
         return redirect(url_for('question', id=(id+1)))
