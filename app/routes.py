@@ -2,12 +2,13 @@ import uuid
 from datetime import datetime
 
 from app import app
-from flask import render_template, request, redirect, url_for, session, g, flash
+from flask import render_template, request, redirect, url_for, session, g, flash, jsonify
 from wtforms.fields.html5 import DateField
 from werkzeug.urls import url_parse
 from app.forms import LoginForm, RegistrationForm, QuestionForm
 from app.models import User, Questions, Results, Sessions
 from app import db
+from result_counter import get_user_results, get_methodic
 
 
 @app.before_request
@@ -117,3 +118,16 @@ def logout():
     session.pop('s_uid', None)
     session.pop('marks', None)
     return redirect(url_for('home'))
+
+@app.route('/results', methods=['GET','POST'])
+def results():
+    if request.method == "POST":
+        login = request.form['login']
+        if login:
+            res = get_user_results(get_methodic(1), login)
+            print(res)
+            if res.results_counted:
+                # res = {k: str(v) for k, v in res.results_counted}
+                return jsonify({'output': str(res.results_counted)})#res.results_counted)
+        return jsonify({'output': 'Нет такого логина или пользователь не заполнил методику до конца'})
+    return render_template('result.html')

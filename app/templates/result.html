@@ -1,23 +1,42 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Form Sample</title>
+</head>
 
-{% block content %}
-    <div class="score-main">
-            <h1 class="score-head">{{methodic.name}}</h1>
-{#            <div class="score-circle">#}
-{#                <h1>{{ g.user.marks }}</h1>#}
-{#            </div>#}
-            {% if methodic.results_counted %}
-                <img src="/plots/{{methodic.max_scale_x}}scale{{methodic.results_counted}}/plot.png" alt="my plot">
-                <h1 class="congrats-cls">{{methodic.results_counted}}</h1>
-                <a href="{{url_for('score')}}">К списку методик</a>
-            {% else %}
-                <h1 class="congrats-cls">Методика заполнена не до конца</h1>
-                <a href="{{url_for('question', id=methodic.start_point)}}">К методике</a>
-            {% endif %}
-            <div class="redirect-links">
-                <a href="{{ url_for('score') }}"><i class='fas fa-angle-left'></i> Назад</a>
-{#                <a href="#" class="btn btn-primary disabled" >Retake Test</a>#}
-            </div>
-    </div>
-    <!-- <p>Your Final Score is {{ g.user.marks }}. Congratulations <3</p> -->
-{% endblock %}
+<body>
+
+    <h1>Результаты теста</h1>
+
+    <form id="form">
+        <h2>Введите login пользователя</h2>
+        <input type="text" id="login">
+        <button type="submit" name="button">Submit</button>
+    </form>
+    
+    <div id="output"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#form').on('submit',function(e){
+            $.ajax({
+            data : {
+                login : $('#login').val(),
+            },
+            type : 'POST',
+            url : '/results'
+            })
+            .done(function(data){
+            $('#output').text(data.output).show();
+            });
+            e.preventDefault();
+        });
+    });
+    </script>
+    
+</body>
+</html>

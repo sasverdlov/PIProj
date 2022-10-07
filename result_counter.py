@@ -66,39 +66,39 @@ class UserResult(Methodic):
         super().__init__(methodic.i, methodic.name, methodic.questions, methodic.count_f, methodic.max_scale_x)
         self.user_id = user_id
         self.results_raw = read_methodic_answer_rows(self.user_id, self.questions)
-        self.enough_results = True if len(self.results_raw) == len(self.questions) else False
+        self.enough_results = True if self.results_raw and len(self.results_raw) == len(self.questions) else False
         self.results_counted = self.count_f(self.results_raw) if self.enough_results else None
         self.max_scale_x = methodic.max_scale_x
 
 
 def count_diner(raw_data: dict) -> dict:
-    mappingT = {"Верно": 1, "Не верно": 0}
-    mappingF = {"Верно": 0, "Не верно": 1}
+    mappingT = {"Верно": 1, "Неверно": 0}
+    mappingF = {"Верно": 0, "Неверно": 1}
     Lsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (5, 11, 24, 47, 58)}.values())
-    Fsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (22, 24, 61)}.values(),
+    Fsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (22, 24, 61)}.values()) + sum(
                {k: mappingT[v] for k, v in raw_data.items() if
                 k in (9, 12, 15, 19, 30, 38, 48, 49, 58, 59, 64, 71)}.values())
     Ksum = sum({k: mappingF[v] for k, v in raw_data.items() if
                 k in (11, 23, 31, 33, 34, 36, 40, 41, 43, 51, 56, 61, 65, 67, 69, 70)}.values())
-    Hssum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (1, 2, 6, 37, 45)}.values(),
+    Hssum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (1, 2, 6, 37, 45)}.values()) + sum(
                 {k: mappingT[v] for k, v in raw_data.items() if k in (9, 18, 26, 32, 44, 46, 55, 62, 63)}.values())
-    Dsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (1, 3, 6, 11, 28, 37, 40, 42, 60, 65, 61)}.values(),
+    Dsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (1, 3, 6, 11, 28, 37, 40, 42, 60, 65, 61)}.values()) + sum(
                {k: mappingT[v] for k, v in raw_data.items() if k in (9, 13, 11, 18, 22, 25, 36, 44)}.values())
     Hysum = sum({k: mappingF[v] for k, v in raw_data.items() if
-                 k in (1, 2, 3, 11, 23, 28, 29, 31, 33, 35, 37, 40, 41, 43, 45, 50, 56)}.values(),
+                 k in (1, 2, 3, 11, 23, 28, 29, 31, 33, 35, 37, 40, 41, 43, 45, 50, 56)}.values()) + sum(
                 {k: mappingT[v] for k, v in raw_data.items() if k in (9, 13, 18, 26, 44, 46, 55, 57, 62)}.values())
-    Pdsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (3, 28, 34, 35, 41, 43, 50, 65)}.values(),
+    Pdsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (3, 28, 34, 35, 41, 43, 50, 65)}.values()) + sum(
                 {k: mappingT[v] for k, v in raw_data.items() if
                  k in (7, 10, 13, 14, 15, 16, 22, 27, 52, 58, 71)}.values())
-    Раsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (28, 29, 31, 67)}.values(),
+    Раsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (28, 29, 31, 67)}.values()) + sum(
                 {k: mappingT[v] for k, v in raw_data.items() if k in (5, 8, 10, 15, 30, 39, 63, 64, 66, 68)}.values())
-    Ptsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (2, 3, 42)}.values(),
+    Ptsum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (2, 3, 42)}.values()) + sum(
                 {k: mappingT[v] for k, v in raw_data.items() if
                  k in (5, 8, 13, 17, 22, 25, 27, 36, 44, 51, 57, 66, 68)}.values())
-    Sesum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (3, 42)}.values(),
+    Sesum = sum({k: mappingF[v] for k, v in raw_data.items() if k in (3, 42)}.values()) + sum(
                 {k: mappingT[v] for k, v in raw_data.items() if
                  k in (5, 7, 8, 10, 13, 14, 15, 16, 17, 26, 30, 38, 39, 46, 57, 63, 64, 66)}.values())
-    Masum = sum({k: mappingF[v] for k, v in raw_data.items() if k == 43}.values(),
+    Masum = sum({k: mappingF[v] for k, v in raw_data.items() if k == 43}.values()) + sum(
                 {k: mappingT[v] for k, v in raw_data.items() if
                  k in (4, 7, 8, 21, 29, 34, 38, 39, 54, 57, 60)}.values())
 
