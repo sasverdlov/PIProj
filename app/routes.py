@@ -125,7 +125,7 @@ def results():
         login = request.form['login']
         if login:
             res = get_user_results(get_methodic(1), login)
-            print(res)
+            # print(res)
             if res.results_counted:
                 # res = {k: str(v) for k, v in res.results_counted}
                 return jsonify({'output': str(res.results_counted)})#res.results_counted)
