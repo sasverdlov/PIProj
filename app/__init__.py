@@ -17,5 +17,3 @@ manager.add_command('db', MigrateCommand)
 # login_manager.init_app(app)
 
 from app import routes
-
-   
