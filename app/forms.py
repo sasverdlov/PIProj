@@ -10,17 +10,17 @@ from app.models import User
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired("Введите email")])
+    password = PasswordField('Password', validators=[DataRequired("Введите пароль")])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Войти')
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=(DataRequired(), Email()))
-    birthdate = DateField('Birthdate', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired("Введите ФИО")])
+    email = StringField('Email', validators=(DataRequired("Введите email"), Email("Введите корректный email")))
+    birthdate = DateField('Birthdate', validators=[DataRequired("Введите дату рождения")])
+    password = PasswordField('Password', validators=[DataRequired("Введите пароль")])
     password2 = PasswordField('Confirm Password',
                               validators=(DataRequired(), EqualTo('password')))
     submit = SubmitField('Зарегистрироваться')
@@ -28,7 +28,7 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Имя пользователя уже занято')
+            raise ValidationError('Такой пользователь уже зарегистрирован')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
