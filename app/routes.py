@@ -47,7 +47,7 @@ def login():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, birthdate=form.birthdate.data)
+        user = User(username=form.username.data.lower(), email=form.email.data.lower(), birthdate=form.birthdate.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -124,7 +124,7 @@ def results():
     if request.method == "POST":
         login = request.form['login']
         if login:
-            res = get_user_results(get_methodic(1), login)
+            res = get_user_results(get_methodic(1), login.lower())
             # print(res)
             if res.results_counted:
                 # res = {k: str(v) for k, v in res.results_counted}

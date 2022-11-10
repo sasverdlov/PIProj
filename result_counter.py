@@ -13,12 +13,19 @@ def get_all_methodics():
 
 
 def read_methodic_answer_rows(user_id: int, questions_ids: list):
+    def map_uid_login(user_fio_or_email):
+        sqlite_select_query = f"""SELECT DISTINCT id from user WHERE username IN ('{user_fio_or_email.lower()}') OR email IN ('{user_fio_or_email.lower()}')"""
+        cursor.execute(sqlite_select_query)
+        id = cursor.fetchall()
+        if id:
+            return id[0][0]
     try:
         sqlite_connection = sqlite3.connect("app.db")
         cursor = sqlite_connection.cursor()
         print("Подключен к SQLite")
+        user_id = map_uid_login(str(user_id))
         sqlite_select_query = f"""SELECT DISTINCT q_id, answ from results WHERE u_id == {user_id} AND q_id IN ({','.join(map(str, questions_ids))}) ORDER BY timestamp ASC"""
-        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        # cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
         cursor.execute(sqlite_select_query)
         return {k: v for k, v in cursor.fetchall()}
         # print("Чтение ", row_size, " строк")
@@ -65,7 +72,7 @@ class UserResult(Methodic):
     def __init__(self, methodic, user_id):
         super().__init__(methodic.i, methodic.name, methodic.questions, methodic.count_f, methodic.max_scale_x)
         self.user_id = user_id
-        self.results_raw = read_methodic_answer_rows(self.user_id, self.questions)
+        self.results_raw = read_methodic_answer_rows(self.user_id.lower(), self.questions)
         self.enough_results = True if self.results_raw and len(self.results_raw) == len(self.questions) else False
         self.results_counted = self.count_f(self.results_raw) if self.enough_results else None
         self.max_scale_x = methodic.max_scale_x
